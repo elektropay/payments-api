@@ -1,0 +1,7 @@
+{
+    "name": "payments-api",
+    "version": "0.1.0",
+    "description": "Api responsible to process and store payments of collectives",
+    "title": "Payments API",
+    "url": "https://api.github.com/v1"
+}
