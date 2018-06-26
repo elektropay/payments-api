@@ -16,11 +16,11 @@ const logger = Logger.getInstance();
 
 export default class CollectivesService {
 
-  private async insertFeeTransactions(collectiveTransaction: ICollectiveTransaction, isUserPaying: boolean):
+  private async insertFeeTransactions(collectiveTransaction: ICollectiveTransaction, contributor: IUser):
     Promise<IFeeCollectiveTransaction[]> {
     try {
       const query: IPaymentProcessor = {};
-      if (isUserPaying) {
+      if (contributor) {
         query.userPays = true;
       } else {
         query.collectivePays = true;
@@ -36,12 +36,12 @@ export default class CollectivesService {
           feeValue += processor.txFixValue;
         }
         if (processor.txPercent) {
-          feeValue += (processor.txPercent * collectiveTransaction.value);
+          feeValue += (processor.txPercent * ((contributor === null) ? (-1 * collectiveTransaction.value) : collectiveTransaction.value));
         }
         const newFeeTransaction: IFeeCollectiveTransaction = {
           collectiveTransactionId: collectiveTransaction.id,
           paymentProcessor: processor,
-          value: feeValue,
+          value: (contributor === null) ? (-1 * feeValue) : feeValue,
         };
         const dbFeeTransaction = new FeeCollectiveTransaction(newFeeTransaction);
         await FeeCollectiveTransaction.create(dbFeeTransaction);
@@ -65,14 +65,15 @@ export default class CollectivesService {
   }
 
   public async insertCollectiveTransaction(
-    collectiveTransaction: ICollectiveTransaction, collective: ICollective, isUserPaying: boolean) {
+    collectiveTransaction: ICollectiveTransaction, collective: ICollective, contributor: IUser) {
     try {
-      if (!isUserPaying) {
+      if (!contributor) {
         collectiveTransaction.value = (collectiveTransaction.value * (-1) );
       }
       const dbCollectiveTransaction = await CollectiveTransaction.create(collectiveTransaction);
+      
       const feeCollectiveTransactions: IFeeCollectiveTransaction[] =
-        await this.insertFeeTransactions(dbCollectiveTransaction, isUserPaying);
+        await this.insertFeeTransactions(dbCollectiveTransaction, contributor);
       dbCollectiveTransaction.feeCollectiveTransactions = feeCollectiveTransactions;
       await CollectiveTransaction.update({_id: dbCollectiveTransaction.id}, dbCollectiveTransaction);
 
@@ -82,11 +83,11 @@ export default class CollectivesService {
         collective.transactions = [dbCollectiveTransaction];
       }
 
-      if (isUserPaying) {
+      if (contributor) {
         if (collective.contributors) {
-          collective.contributors.push(collective.creator);
+          collective.contributors.push(contributor);
         } else {
-          collective.contributors = [collective.creator];
+          collective.contributors = [contributor];
         }
       }
 

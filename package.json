@@ -1,7 +1,7 @@
 {
   "name": "payment-api",
   "version": "0.1.0",
-  "description": "Api responsible for persisting jaxx users and its events and datas.",
+  "description": "Api responsible for persisting users, payments and collectives(crowdfunding).",
   "main": "server.js",
   "scripts": {
     "build": "node node_modules/typescript/bin/tsc",

@@ -122,7 +122,7 @@ export function setupRoutes(fastify) {
         value : request.body.value,
       };
       const dbCollectiveTx = await collectivesService
-        .insertCollectiveTransaction(collectiveTransaction, collective, true);
+        .insertCollectiveTransaction(collectiveTransaction, collective, user);
 
       reply.code(200).send(dbCollectiveTx);
     } catch (error) {
