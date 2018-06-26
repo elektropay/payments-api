@@ -21,6 +21,7 @@ If you want to change the port or any other configuration go to the file `src/co
 
 - `npm install`
 - `npm run build`
+- `npm run docs`
 - `npm start`(this one already runs the build so you can skip the second command)
 
 If you want your project to be updated every change you make, just use:

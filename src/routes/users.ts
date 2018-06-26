@@ -1,12 +1,12 @@
 
 import config from "../config/config";
-import UsersService from "../services/users";
 import Logger from "../globals/logger";
-import IUser from "../models/interfaces/iUser";
 import Collective from "../models/collective";
 import ICollective from "../models/interfaces/iCollective";
-import CollectivesService from "../services/collectives";
 import ICollectiveTransaction from "../models/interfaces/iCollectiveTransaction";
+import IUser from "../models/interfaces/iUser";
+import CollectivesService from "../services/collectives";
+import UsersService from "../services/users";
 const logger = Logger.getInstance();
 
 export function setupRoutes(fastify) {

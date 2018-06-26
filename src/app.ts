@@ -41,7 +41,8 @@ export default class App {
         logger.error(err);
         process.exit(1);
       }
-      logger.info(`server listening on ${this.fastify.server.address().port}`);
+      const parsedAddress = JSON.parse(JSON.stringify(this.fastify.server.address()));
+      logger.info(`server listening on ${parsedAddress.address + ":" + parsedAddress.port}`);
     });
   }
 

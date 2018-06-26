@@ -1,5 +1,5 @@
-import config from "../config/config";
 import * as mongoose from "mongoose";
+import config from "../config/config";
 import Logger from "../globals/logger";
 import BulkPaymentProcessors from "../scripts/bulkPaymentProcessors";
 const logger = Logger.getInstance();

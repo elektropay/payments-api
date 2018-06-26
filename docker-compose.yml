@@ -3,16 +3,18 @@ services:
     payments-api:
         container_name: payments-api
         image: payments-api:latest
-        restart: always
-        build: .
         ports:
-        - "3000:3000"
+            - "3000:3000"
+        # volumes:
+            # - /usr/src/app/node_modules/    
         links:
-        - mongo
+            - mongodb
+        depends_on:
+            - mongodb
+        # environment:
+            # - DB_URL="mongodb://mongo"
     mongo:
         container_name: mongo
         image: mongo
-        volumes:
-        - ./data:/data/db
         ports:
-        - "27000:27017"
+            - "27000:27017"

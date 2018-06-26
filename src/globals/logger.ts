@@ -1,12 +1,12 @@
-import config from "../config/config";
 import * as mongoose from "mongoose";
 import * as pino from "pino";
+import config from "../config/config";
 mongoose.Promise = global.Promise;
 
 export default class Logger {
   private static instance: Logger;
-  
-  private pino : any = pino({ level: config.logLevel });
+
+  private pino: any = pino({ level: config.logLevel });
 
   public static getInstance() {
       if (!Logger.instance) {

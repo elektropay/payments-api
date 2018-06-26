@@ -1,9 +1,9 @@
 import axios from "axios";
-import config from "../config/config";
 import * as bcrypt from "bcrypt";
+import config from "../config/config";
 import Logger from "../globals/logger";
-import User from "../models/user";
 import IUser from "../models/interfaces/iUser";
+import User from "../models/user";
 const saltRounds = 10;
 const logger = Logger.getInstance();
 
@@ -20,7 +20,7 @@ export default class UsersService {
       throw error;
     }
   }
-      
+
   public async getUser(id: string) {
     try {
       const result = await User.findById(id);

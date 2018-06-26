@@ -8,10 +8,6 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
-
-RUN npm run docs
-
 EXPOSE 3000
 
-CMD [ "node", "bin/server.js"]
+CMD [ "npm", "run", "start"]
