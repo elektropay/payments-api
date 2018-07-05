@@ -193,7 +193,7 @@ There are other `docker` scripts defined on the `package.json` files:
   
 6. Collective sends 500 to user 1
 	- When the collective sends 500 to the contract:
-		0. `curl -H "Content-Type: application/json" -X POST --data '{"value": 2000}' http://localhost:3000/collectives/5b327df8ef829c0020d2a0ef/users/5b3283126b173c00205377c7`
+		0. `curl -H "Content-Type: application/json" -X POST --data '{"value": 500}' http://localhost:3000/collectives/5b327df8ef829c0020d2a0ef/users/5b3283126b173c00205377c7`
 		1. the currentBalance becomes 2000-500 = 1500
 		2. one `collectiveTransaction` with value of -500 is added(money out of collective is represented with negative value)
 		3.  1 `feecollectiveTransactions` is generated(paypal)
